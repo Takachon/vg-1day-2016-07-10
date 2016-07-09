@@ -2,6 +2,7 @@ package model
 
 import (
 	"db"
+	"time"
 
 	"encoding/json"
 	"fmt"
@@ -12,8 +13,9 @@ import (
 
 type (
 	Message struct {
-		Id   int    `json:"id"`
-		Body string `json:"body"`
+		Id         int    `json:"id"`
+		Body       string `json:"body"`
+		Created_at string `json:created_at`
 		// CreatedAt string `json:"created_at"` // 1-1. メッセージの投稿時刻
 		// Username  string `json:"user_name"`  // 1-2. ユーザ名
 	}
@@ -102,6 +104,7 @@ func NewMessage(body string) (*Message, error) {
 		Id:   id,
 		Body: body,
 		// 1-1. CreatedAt に時刻をセットする
+		Created_at: time.Now().Format(time.RFC3339),
 		// ヒント: https://golang.org/pkg/time/
 		// 1-2. Username にユーザ名をセットする
 	}, nil
