@@ -62,20 +62,36 @@ func ReadMessage(c echo.Context) error {
 
 // 1-3. メッセージの更新
 func UpdateMessage(c echo.Context) error {
-	// request.Message を用意する
-	// 受け取った json を request.Message として取得する
+	var m model.Message
 
-	// model.Message を用意する
-	// 受け取った id を使って model.Message を取得する
-	// ヒント: model.Message.LoadMessage()
+	if err := c.Bind(&m); err != nil {
+		fmt.Fprintf(os.Stderr, "%+v\n", err)
+		return err
+	}
 
-	// メッセージ本文を更新する
+	body := m.Body
 
-	// メッセージを保存する
-	// ヒント: model.Message.SaveMessage()
+	var id int
+	var err error
 
-	// メッセージを json で返す
-	return nil
+	if id, err = strconv.Atoi(c.Param("id")); err != nil {
+		fmt.Fprintf(os.Stderr, "%+v\n", err)
+		return err
+	}
+
+	if err := m.LoadMessage(id); err != nil {
+		fmt.Fprintf(os.Stderr, "%+v\n", err)
+		return err
+	}
+
+	m.Body = body
+
+	if err := m.SaveMessage(); err != nil {
+		fmt.Fprintf(os.Stderr, "%+v\n", err)
+		return err
+	}
+
+	return c.JSON(http.StatusCreated, m)
 }
 
 // 1-4. メッセージの削除
