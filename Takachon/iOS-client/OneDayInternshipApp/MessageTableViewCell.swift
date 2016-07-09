@@ -29,6 +29,7 @@ class MessageTableViewCell: UITableViewCell {
         self.datetimeLabel.text = nil
         
         // 1-2 ユーザ名表示用ラベルの再利用処理
+        self.usernameLabel.text = nil
     }
     
     func setupComponentsWithMessage(message: Message) {
@@ -37,6 +38,7 @@ class MessageTableViewCell: UITableViewCell {
         self.datetimeLabel.text = message.dateString
 
         // 1-2 ユーザ名データの表示処理追加
+        self.usernameLabel.text = message.username
     }
     
     func handleLongPress(recognizer: UILongPressGestureRecognizer) {

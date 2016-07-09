@@ -15,13 +15,15 @@ class Message {
     let dateString: String!
     
     // 1-2 ユーザ名データを扱うためのプロパティ追加
+    let username: String!
     
-    init(identifier: Int?, body: String, dateString: String) {
+    init(identifier: Int?, body: String, dateString: String, username: String) {
         self.identifier = identifier
         self.body = body
         // 1-1 時刻データを用いて初期化
         self.dateString = dateString
         
         // 1-2 ユーザ名データを用いて初期化
+        self.username = username
     }
 }

@@ -32,7 +32,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
     func postAndCloseWithMessageBody(messageBody: String, sender: AnyObject) {
         
         // 1-2 ユーザ名データを投稿できるよう修正
-        MessageService.post(messageBody) {
+        MessageService.post(messageBody, username: usernameTextField.text!) {
             [weak self] (error) in
             
             self?.delegate?.postViewController(self!, didTouchUpCloseButton: sender)
