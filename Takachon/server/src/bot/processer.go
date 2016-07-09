@@ -3,8 +3,10 @@ package bot
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
+	"math/rand"
 	"model"
 	"net/url"
+	"time"
 )
 
 type (
@@ -25,6 +27,10 @@ type (
 		Name string
 	}
 
+	UranaiProcesser struct {
+		Name   string
+		Result string
+	}
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
@@ -39,6 +45,12 @@ func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 func (p *GreetProcesser) Process(msgIn *model.Message) *model.Message {
 	txt := "[greet] nice to meet you! my name is " + p.Name
 	return &model.Message{Body: txt}
+}
+
+func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+	txt := []string{"大吉", "中吉", "笑吉"}[rand.Intn(3)]
+	return &model.Message{Body: txt, Username: p.Name}
 }
 
 func (p *TimelineProcesser) Init() {
